@@ -1,10 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
+import cors from "cors"; 
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import requestRoutes from "./routes/requestRoutes.js";
 import equipmentRoutes from "./routes/equipmentRoutes.js";
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swaggerConfig.js'; 
 
 dotenv.config({ path: './.env' });
 console.log("MONGO_URI:", process.env.MONGO_URI);
@@ -26,6 +28,8 @@ app.get("/", (req, res) => {
 
 
 const PORT = process.env.PORT || 5000;
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
