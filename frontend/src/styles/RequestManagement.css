@@ -1,0 +1,210 @@
+.request-management {
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+
+.requests-container {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+}
+
+.tab {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: #666;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.tab:hover {
+    background: #f0f0f0;
+}
+
+.tab.active {
+    background: #667eea;
+    color: white;
+}
+
+/* Requests Grid */
+.requests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.request-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.request-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.request-card .card-header {
+    padding: 20px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.request-card .card-header h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.user-info {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-approved {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-rejected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-returned {
+    background: #d4edda;
+    color: #155724;
+}
+
+.request-card .card-body {
+    padding: 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.info-row .label {
+    color: #666;
+    font-weight: 500;
+}
+
+.info-row span:last-child {
+    color: #333;
+}
+
+.request-card .card-footer {
+    padding: 15px 20px;
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-approve {
+    flex: 1;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-approve:hover {
+    opacity: 0.8;
+}
+
+.btn-reject {
+    flex: 1;
+    padding: 10px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-reject:hover {
+    opacity: 0.8;
+}
+
+.btn-return {
+    width: 100%;
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-return:hover {
+    opacity: 0.8;
+}
+
+.info-text {
+    width: 100%;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .requests-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-tabs {
+        flex-direction: column;
+    }
+
+    .tab {
+        width: 100%;
+    }
+}

@@ -1,0 +1,47 @@
+.nf-container {
+    height: 100vh;
+    background: radial-gradient(circle at top, #0a0a1f, #000);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+}
+
+.nf-title {
+    font-size: 120px;
+    font-weight: 900;
+    color: #61dafb;
+    text-shadow: 0 0 20px rgba(97, 218, 251, 0.6);
+    margin-bottom: 10px;
+}
+
+.nf-subtitle {
+    font-size: 22px;
+    opacity: 0.9;
+    margin-bottom: 25px;
+}
+
+.nf-image {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 30px;
+}
+
+.nf-button {
+    background: linear-gradient(90deg, #1e90ff, #00bcd4);
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+}
+
+.nf-button:hover {
+    background: linear-gradient(90deg, #00bcd4, #1e90ff);
+}
