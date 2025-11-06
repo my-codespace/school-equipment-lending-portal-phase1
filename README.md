@@ -49,6 +49,7 @@ graph TD
 
     Client -- "<b>REST API Calls</b><br>(GET, POST, PATCH, etc.)" --> Server
     Server -- "Mongoose (CRUD Operations)" --> DB
+```http://googleusercontent.com/image_generation_content/0
 ```
 ```mermaid
 sequenceDiagram
