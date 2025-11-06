@@ -35,18 +35,17 @@ graph TD
 ```
 ```mermaid
 graph TD
-    subgraph "Client (Browser @ localhost:3000)"
+    subgraph "Client (Browser on localhost:3000)"
         Client[<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="30" /> <br> React SPA]
     end
 
-    subgraph "Server (Backend @ localhost:5000)"
+    subgraph "Server (Backend on localhost:5000)"
         Server[<img src="https://static-00.iconduck.com/assets.00/nodejs-icon-2048x2048-rpc0nxxb.png" width="30" /> <br> Node.js / Express Server]
         DB[(<img src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-n0crh6w2.png" width="30" /> <br> MongoDB Database)]
         Server -- "Mongoose (CRUD Operations)" --> DB
     end
 
     Client -- "<b>REST API Calls</b><br>(GET, POST, PATCH, etc.)" --> Server
-
 ```
 ```mermaid
 sequenceDiagram
@@ -73,16 +72,16 @@ sequenceDiagram
     participant S as Server (Node.js/Express)
     participant DB as MongoDB
 
-    C ->> S: 1. POST /api/request <br> (Header: {Authorization: Bearer JWT})
+    C ->> S: "1. POST /api/request <br> (Header: {Authorization: Bearer JWT})"
     
-    S ->> S: 2. <b>authMiddleware.js</b> runs <br> (Verifies JWT & 'student' role)
+    S ->> S: "2. **authMiddleware.js** runs <br> (Verifies JWT & 'student' role)"
     
-    S ->> DB: 3. <b>requestController.js</b> runs <br> (Find equipment, check availableCount > 0)
-    DB -->> S: Equipment data (e.g., availableCount: 5)
+    S ->> DB: "3. **requestController.js** runs <br> (Find equipment, check availableCount > 0)"
+    DB -->> S: "Equipment data (e.g., availableCount: 5)"
     
-    S ->> DB: 4. <b>requestController.js</b> <br> (Create new Request document, status: 'pending')
-    DB -->> S: New request object
+    S ->> DB: "4. **requestController.js** <br> (Create new Request document, status: 'pending')"
+    DB -->> S: "New request object"
     
-    S -->> C: 5. Server sends 201 Created (with new request)
-    C ->> C: 6. Client updates UI (shows "Success!")
+    S -->> C: "5. Server sends 201 Created (with new request)"
+    C ->> C: "6. Client updates UI (shows 'Success!')"
 ```
