@@ -35,17 +35,20 @@ graph TD
 ```
 ```mermaid
 graph TD
-    subgraph "Client (Browser on localhost:3000)"
+    subgraph "Client (on Browser)"
         Client[<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="30" /> <br> React SPA]
     end
 
-    subgraph "Server (Backend on localhost:5000)"
+    subgraph "Backend (on localhost:5000)"
         Server[<img src="https://static-00.iconduck.com/assets.00/nodejs-icon-2048x2048-rpc0nxxb.png" width="30" /> <br> Node.js / Express Server]
+    end
+    
+    subgraph "Database"
         DB[(<img src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-n0crh6w2.png" width="30" /> <br> MongoDB Database)]
-        Server -- "Mongoose (CRUD Operations)" --> DB
     end
 
     Client -- "<b>REST API Calls</b><br>(GET, POST, PATCH, etc.)" --> Server
+    Server -- "Mongoose (CRUD Operations)" --> DB
 ```
 ```mermaid
 sequenceDiagram
@@ -57,13 +60,14 @@ sequenceDiagram
     S ->> DB: 2. Find user by email
     DB -->> S: Return user (with hashed password)
     S ->> S: 3. Verify password (bcrypt.compare)
+    
     alt Credentials Correct
         S ->> S: 4. Create JWT (sign with JWT_SECRET)
         S -->> C: 5. 200 OK (Response with JWT)
+        C ->> C: 6. Store token in localStorage/Context
     else Credentials Incorrect
-        S -->> C: 401 Unauthorized
+        S -->> C: 4. 401 Unauthorized
     end
-    C ->> C: 6. Store token in localStorage/Context
 ```
 
 ```mermaid
@@ -72,16 +76,21 @@ sequenceDiagram
     participant S as Server (Node.js/Express)
     participant DB as MongoDB
 
-    C ->> S: "1. POST /api/request <br> (Header: {Authorization: Bearer JWT})"
+    C ->> S: 1. POST /api/request <br> (Header: {Authorization: Bearer JWT})
     
-    S ->> S: "2. **authMiddleware.js** runs <br> (Verifies JWT & 'student' role)"
+    S ->> S: 2. authMiddleware.js runs <br> (Verifies JWT & 'student' role)
     
-    S ->> DB: "3. **requestController.js** runs <br> (Find equipment, check availableCount > 0)"
-    DB -->> S: "Equipment data (e.g., availableCount: 5)"
+    S ->> DB: 3. requestController.js <br> (Find equipment, check availableCount > 0)
+    DB -->> S: Equipment data (e.g., availableCount: 5)
     
-    S ->> DB: "4. **requestController.js** <br> (Create new Request document, status: 'pending')"
-    DB -->> S: "New request object"
+    S ->> DB: 4. requestController.js <br> (Check for user's existing active requests for this item)
+    DB -->> S: Existing requests (e.g., 0)
     
-    S -->> C: "5. Server sends 201 Created (with new request)"
-    C ->> C: "6. Client updates UI (shows 'Success!')"
+    note right of S: Assume all checks pass
+    
+    S ->> DB: 5. requestController.js <br> (Create new Request document, status: 'pending')
+    DB -->> S: New request object
+    
+    S -->> C: 6. Server sends 201 Created (with new request)
+    C ->> C: 7. Client updates UI (shows 'Success!')
 ```
