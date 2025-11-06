@@ -39,9 +39,11 @@ graph TD
         Client[<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="30" /> <br> React SPA]
     end
 
-    subgraph "Backend (on localhost:5000)"
-        Server[<img src="https://static-00.iconduck.com/assets.00/nodejs-icon-2048x2048-rpc0nxxb.png" width="30" /> <br> Node.js / Express Server]
+    %% --- Change is here ---
+    subgraph "Backend"
+        Server[<img src="https://static-00.iconduck.com/assets.00/nodejs-icon-2048x2048-rpc0nxxb.png" width="30" /> <br> Node.js / Express Server <br> on localhost:5000]
     end
+    %% --- End of Change ---
     
     subgraph "Database"
         DB[(<img src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-n0crh6w2.png" width="30" /> <br> MongoDB Database)]
@@ -49,7 +51,6 @@ graph TD
 
     Client -- "<b>REST API Calls</b><br>(GET, POST, PATCH, etc.)" --> Server
     Server -- "Mongoose (CRUD Operations)" --> DB
-```http://googleusercontent.com/image_generation_content/0
 ```
 ```mermaid
 sequenceDiagram
