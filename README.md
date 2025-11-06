@@ -33,3 +33,18 @@ graph TD
     classDef page fill:#e6f7ff,stroke:#0056b3,stroke-width:2px;
     class R_Login,R_Reg,R_Unauth,R_Root,R_Wild,Equip,Admin,Req,MyReq page;
 ```
+```mermaid
+graph TD
+    subgraph "Client (Browser @ localhost:3000)"
+        Client[<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="30" /> <br> React SPA]
+    end
+
+    subgraph "Server (Backend @ localhost:5000)"
+        Server[<img src="https://static-00.iconduck.com/assets.00/nodejs-icon-2048x2048-rpc0nxxb.png" width="30" /> <br> Node.js / Express Server]
+        DB[(<img src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-n0crh6w2.png" width="30" /> <br> MongoDB Database)]
+        Server -- "Mongoose (CRUD Operations)" --> DB
+    end
+
+    Client -- "<b>REST API Calls</b><br>(GET, POST, PATCH, etc.)" --> Server
+
+```
