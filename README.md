@@ -48,3 +48,41 @@ graph TD
     Client -- "<b>REST API Calls</b><br>(GET, POST, PATCH, etc.)" --> Server
 
 ```
+```mermaid
+sequenceDiagram
+    participant C as React Client
+    participant S as Express Server
+    participant DB as MongoDB
+
+    C ->> S: 1. POST /api/auth/login (email, password)
+    S ->> DB: 2. Find user by email
+    DB -->> S: Return user (with hashed password)
+    S ->> S: 3. Verify password (bcrypt.compare)
+    alt Credentials Correct
+        S ->> S: 4. Create JWT (sign with JWT_SECRET)
+        S -->> C: 5. 200 OK (Response with JWT)
+    else Credentials Incorrect
+        S -->> C: 401 Unauthorized
+    end
+    C ->> C: 6. Store token in localStorage/Context
+```
+
+```mermaid
+sequenceDiagram
+    participant C as React Client (Student)
+    participant S as Server (Node.js/Express)
+    participant DB as MongoDB
+
+    C ->> S: 1. POST /api/request <br> (Header: {Authorization: Bearer JWT})
+    
+    S ->> S: 2. <b>authMiddleware.js</b> runs <br> (Verifies JWT & 'student' role)
+    
+    S ->> DB: 3. <b>requestController.js</b> runs <br> (Find equipment, check availableCount > 0)
+    DB -->> S: Equipment data (e.g., availableCount: 5)
+    
+    S ->> DB: 4. <b>requestController.js</b> <br> (Create new Request document, status: 'pending')
+    DB -->> S: New request object
+    
+    S -->> C: 5. Server sends 201 Created (with new request)
+    C ->> C: 6. Client updates UI (shows "Success!")
+```
