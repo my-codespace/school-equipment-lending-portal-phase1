@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     App(App) --> Auth(AuthProvider)
     Auth --> Router(Router)
@@ -31,3 +32,5 @@ graph TD
 
     classDef page fill:#e6f7ff,stroke:#0056b3,stroke-width:2px;
     class R_Login,R_Reg,R_Unauth,R_Root,R_Wild,Equip,Admin,Req,MyReq page;
+
+```
