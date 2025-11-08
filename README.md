@@ -1,37 +1,44 @@
 ```mermaid
-graph TD
-    App(App) --> Auth(AuthProvider)
-    Auth --> Router(Router)
-    Router --> Routes(Routes)
+graph TD;
+    %% Style Definitions
+    classDef provider fill:#d6e4ff,stroke:#333,stroke-width:2px;
+    classDef page fill:#e1f7d5,stroke:#333,stroke-width:2px;
+    classDef protected fill:#ffdec9,stroke:#333,stroke-width:2px;
+    classDef router fill:#f9f3c2,stroke:#333,stroke-width:2px;
 
-    subgraph "Page Routes"
-        Routes --> R_Login("/'login' <br> Login")
-        Routes --> R_Reg("/'register' <br> Register")
-        Routes --> R_Unauth("/'unauthorized' <br> Unauthorized")
-        Routes --> R_Root("/'/' <br> Navigate to /login")
-        Routes --> R_Wild("/'*' <br> ErrorPage")
+    %% Component Hierarchy
+    A[App] --> B(AuthProvider);
+    B --> C(Router);
+    C --> D{Routes};
+
+    class A,B provider;
+    class C,D router;
+
+    subgraph Public Routes
+        D --> Login[Login<br>/login];
+        D --> Register[Register<br>/register];
+        D --> Unauthorized[Unauthorized<br>/unauthorized];
+        D --> ErrorPage[ErrorPage<br>/*];
+        D --> Navigate[Navigate<br>to /login];
     end
 
-    subgraph "Protected Routes"
-        Routes --> P1("/'equipment'")
-        P1 --> PR1(ProtectedRoute)
-        PR1 --> Equip(EquipmentList)
+    subgraph Protected Routes
+        D --> P1(ProtectedRoute);
+        P1 --> EL[EquipmentList<br>/equipment];
 
-        Routes --> P2("/'admin/dashboard'")
-        P2 --> PR2("ProtectedRoute <br> roles: ['admin']")
-        PR2 --> Admin(AdminDashboard)
+        D --> P2(ProtectedRoute<br>roles: ['admin']);
+        P2 --> AD[AdminDashboard<br>/admin/dashboard];
+        
+        D --> P3(ProtectedRoute<br>roles: ['admin', 'staff']);
+        P3 --> RM[RequestManagement<br>/requests];
 
-        Routes --> P3("/'requests'")
-        P3 --> PR3("ProtectedRoute <br> roles: ['admin', 'staff']")
-        PR3 --> Req(RequestManagement)
-
-        Routes --> P4("/'my-requests'")
-        P4 --> PR4(ProtectedRoute)
-        PR4 --> MyReq(MyRequests)
+        D --> P4(ProtectedRoute);
+        P4 --> MR[MyRequests<br>/my-requests];
     end
 
-    classDef page fill:#e6f7ff,stroke:#0056b3,stroke-width:2px;
-    class R_Login,R_Reg,R_Unauth,R_Root,R_Wild,Equip,Admin,Req,MyReq page;
+    %% Apply Page and ProtectedRoute styles
+    class Login,Register,Unauthorized,ErrorPage,Navigate,EL,AD,RM,MR page;
+    class P1,P2,P3,P4 protected;
 ```
 ```mermaid
 graph TD
