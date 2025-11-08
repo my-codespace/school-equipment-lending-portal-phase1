@@ -1,36 +1,15 @@
-import express from "express";
+import app from './app.js'; // Import the new app
 import dotenv from "dotenv";
-import cors from "cors"; 
 import connectDB from "./config/db.js";
-import authRoutes from "./routes/authRoutes.js";
-import requestRoutes from "./routes/requestRoutes.js";
-import equipmentRoutes from "./routes/equipmentRoutes.js";
-import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from './config/swaggerConfig.js'; 
 
+// Load env vars
 dotenv.config({ path: './.env' });
-console.log("MONGO_URI:", process.env.MONGO_URI);
 
-const app = express();
+// Connect to Database
 connectDB();
 
-app.use(cors());
-app.use(express.json());
-
-app.use("/api/request", requestRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/equipment", equipmentRoutes);
-
-
-app.get("/", (req, res) => {
-    res.send("School Equipment Lending Portal Backend Running");
-});
-
-
+// Start the server
 const PORT = process.env.PORT || 5000;
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
