@@ -14,27 +14,25 @@ graph TD;
     class A,B provider;
     class C,D router;
 
-    subgraph Public Routes
-        D --> Login[Login<br>/login];
-        D --> Register[Register<br>/register];
-        D --> Unauthorized[Unauthorized<br>/unauthorized];
-        D --> ErrorPage[ErrorPage<br>/*];
-        D --> Navigate[Navigate<br>to /login];
-    end
+    %% --- Public Routes (No subgraph box) ---
+    D --> Login[Login<br>/login];
+    D --> Register[Register<br>/register];
+    D --> Unauthorized[Unauthorized<br>/unauthorized];
+    D --> ErrorPage[ErrorPage<br>/*];
+    D --> Navigate[Navigate<br>to /login];
+    
+    %% --- Protected Routes (No subgraph box) ---
+    D --> P1(ProtectedRoute);
+    P1 --> EL[EquipmentList<br>/equipment];
 
-    subgraph Protected Routes
-        D --> P1(ProtectedRoute);
-        P1 --> EL[EquipmentList<br>/equipment];
+    D --> P2("ProtectedRoute<br>roles: ['admin']");
+    P2 --> AD[AdminDashboard<br>/admin/dashboard];
+    
+    D --> P3("ProtectedRoute<br>roles: ['admin', 'staff']");
+    P3 --> RM[RequestManagement<br>/requests];
 
-        D --> P2(ProtectedRoute<br>roles: ['admin']);
-        P2 --> AD[AdminDashboard<br>/admin/dashboard];
-        
-        D --> P3(ProtectedRoute<br>roles: ['admin', 'staff']);
-        P3 --> RM[RequestManagement<br>/requests];
-
-        D --> P4(ProtectedRoute);
-        P4 --> MR[MyRequests<br>/my-requests];
-    end
+    D --> P4(ProtectedRoute);
+    P4 --> MR[MyRequests<br>/my-requests];
 
     %% Apply Page and ProtectedRoute styles
     class Login,Register,Unauthorized,ErrorPage,Navigate,EL,AD,RM,MR page;
